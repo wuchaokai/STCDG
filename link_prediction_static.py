@@ -102,7 +102,6 @@ def genGeoData(x,edge_index):
     return data
 
 def save_to_csv(file_name, new_data):
-    # 如果文件存在，追加数据，否则创建新文件
     if os.path.exists(file_name):
         df = pd.read_csv(file_name)
         df = df.append(new_data, ignore_index=True)
@@ -221,12 +220,10 @@ if __name__ == '__main__':
 
     unique_edges = set()
     for graph in graphs:
-        # 遍历每个图中的边
         for edge in graph.edges():
-            # 将边添加到集合中，确保不重复
-            unique_edges.add(tuple(sorted(edge)))  # 使用 sorted 确保边的顺序不影响唯一性
+            unique_edges.add(tuple(sorted(edge)))
 
-    # 总边数
+
     total_unique_edges = len(unique_edges)
     print('节点数：', feats[-1].shape[0])
     print("总的唯一边数:", total_unique_edges)
@@ -428,7 +425,7 @@ if __name__ == '__main__':
                                                                                                    train_role_graph[i],
                                                                                                    Role_set, w=-11,
                                                                                                    delta_t=1,
-                                                                                                   X=None)  # 对w进行消融实验,Cross_role_hypergraph 考虑前一时刻的memory
+                                                                                                   X=None)  #
                     cross_role_hyper += [scipy_sparse_mat_to_torch_sparse_tensor(Cross_role_hypergraph).to(device)]
                     cross_role_laplacian += [
                         scipy_sparse_mat_to_torch_sparse_tensor(previous_role_hypergraph.laplacian()).to(device)]

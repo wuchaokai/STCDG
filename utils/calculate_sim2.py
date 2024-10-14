@@ -238,10 +238,10 @@ def retain_values(matrix, row_indices, col_indices):
     返回:
     np.ndarray: 新矩阵，其中只有指定位置的值保留，其余值为零
     """
-    # 创建一个与原始矩阵大小相同的全零矩阵
+
     new_matrix = np.ones_like(matrix)*(-1)
 
-    # 保持行索引和列索引同时覆盖到的数值不变
+
     for i in row_indices:
         for j in col_indices:
             new_matrix[i, j] = matrix[i, j]
@@ -288,8 +288,8 @@ def calculateThreshold(weights,threshold):
 
 def normalize(mx):
     rowsum = mx.sum(axis=1)
-    rowsum[rowsum == 0] = 1  # 处理行和为零的情况，将其设为1，避免除以零
-    mx_normalized = mx / rowsum[:, np.newaxis]  # 对每行除以对应的和，并确保是二维数组
+    rowsum[rowsum == 0] = 1
+    mx_normalized = mx / rowsum[:, np.newaxis]
     return mx_normalized
 
 
@@ -324,30 +324,30 @@ def compute_neighbor_degrees(adj):
     first_order_degrees -- 一阶邻居度数列表
     second_order_degrees -- 二阶邻居度数列表
     """
-    # 转换为 NetworkX 图
+
     G = nx.from_scipy_sparse_matrix(adj)
 
-    # 初始化存储自身、一阶和二阶邻居度数的列表
+
     zero_order_degrees = []
     first_order_degrees = []
     second_order_degrees = []
 
-    # 计算自身、一阶和二阶邻居度数
+
     for node in G.nodes():
-        # 自身度数
+
         zero_degree = G.degree(node)
         zero_order_degrees.append(zero_degree)
 
-        # 一阶邻居度数列表
+
         first_neighbors = list(G.neighbors(node))
         first_degrees = [G.degree(neighbor) for neighbor in first_neighbors]
         first_order_degrees.append(first_degrees)
 
-        # 二阶邻居度数列表
+
         second_neighbors = set()
         for neighbor in first_neighbors:
             second_neighbors.update(G.neighbors(neighbor))
-        #second_neighbors.discard(node)  # 排除节点自身
+        #second_neighbors.discard(node)
         second_degrees = [G.degree(neighbor) for neighbor in second_neighbors]
         second_order_degrees.append(second_degrees)
 

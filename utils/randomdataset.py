@@ -89,7 +89,6 @@ class RandomDataset(Dataset):
                 pos_edge_index=self.remove_self_loops(pos_edge_index)
                 node_1 = pos_edge_index[0]
                 node_2 = pos_edge_index[1]
-                #去掉同一个点
                 neg_sample_path='data/'+self.args.dataset+'/'+self.args.neg_sample_path
                 # if os.path.exists(neg_sample_path):
                 #     neg_edge_index =torch.load(neg_sample_path)
@@ -132,9 +131,8 @@ class RandomDataset(Dataset):
         return batch_dict
 
     def remove_self_loops(self,edge_index):
-        # 计算所有非自环的掩码
+
         mask = edge_index[0] != edge_index[1]
 
-        # 仅保留非自环的边
         edge_index = edge_index[:, mask]
         return edge_index

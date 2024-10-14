@@ -62,7 +62,7 @@ class CompensateLayer(nn.Module):
                 new_feat_list=0.5*self.sim_temperalLayer2(new_feat_list)+0.5*self.var_temperalLayer2(new_feat_list,self.TimeWeight)
                 #new_feat_list=self.weight1[:feat_list[0].shape[0],:len(feat_list),:]*self.sim_temperalLayer(new_feat_list)+self.weight2[:feat_list[0].shape[0],:len(feat_list),:]*self.var_temperalLayer(new_feat_list,self.TimeWeight)
         new_feat_list=list(torch.unbind(new_feat_list, dim=1))
-        return  new_feat_list #main 单独第二项  main2 第一项少了True main3 单独第一项 少True
+        return  new_feat_list
 
 class GraphConvolution(nn.Module):
     """
